@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EchoEarth Geo Intelligence System</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
 <style>
 
 body{
@@ -16,6 +14,7 @@ background:#050814;
 color:white;
 }
 
+/* NAV */
 nav{
 display:flex;
 justify-content:space-between;
@@ -30,6 +29,7 @@ z-index:10;
 
 nav h2{color:#4fd1ff;}
 
+/* LAYOUT */
 section{
 max-width:1100px;
 margin:auto;
@@ -46,31 +46,51 @@ border:1px solid rgba(255,255,255,0.1);
 margin-top:10px;
 }
 
-input,textarea{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:none;
-border-radius:8px;
-}
-
-button{
-background:#4fd1ff;
-color:black;
-padding:12px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-width:100%;
-}
-
-#map{
-height:450px;
+/* 🗺️ DECORATIVE MAP */
+.map{
+height:500px;
 border-radius:12px;
 margin-top:15px;
+position:relative;
+overflow:hidden;
+background: radial-gradient(circle at 30% 30%, #0b3d91, #020617);
 }
 
+/* glowing grid lines */
+.map::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background:
+linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+background-size:60px 60px;
+animation:gridMove 10s linear infinite;
+opacity:0.3;
+}
+
+@keyframes gridMove{
+0%{transform:translate(0,0);}
+100%{transform:translate(-60px,-60px);}
+}
+
+/* floating nodes */
+.node{
+width:10px;
+height:10px;
+background:#4fd1ff;
+border-radius:50%;
+position:absolute;
+box-shadow:0 0 10px #4fd1ff;
+animation:float 3s infinite ease-in-out;
+}
+
+@keyframes float{
+50%{transform:scale(1.5); opacity:0.5;}
+}
+
+/* REPORT */
 .report{
 white-space:pre-line;
 font-size:14px;
@@ -91,67 +111,51 @@ font-size:14px;
 <h1>🛰 Global Geo Intelligence System</h1>
 
 <div class="card">
-
-<p>Enter coordinates:</p>
-
-<input id="lat" placeholder="Latitude (e.g. 32.1234)">
-<input id="lon" placeholder="Longitude (e.g. 20.4567)">
-
-<button onclick="analyze()">Analyze & Mark on Map</button>
-
+🧠 Click anywhere on the map (decorative system only)
 </div>
 
-<div id="map"></div>
+<div class="map" id="map"></div>
 
 <div class="card" id="output" style="display:none;"></div>
 
 </section>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 
-let map = L.map('map').setView([26, 18], 5);
+/* 🗺️ CREATE DECORATIVE NODES */
+const map = document.getElementById("map");
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-maxZoom: 18,
-}).addTo(map);
-
-function analyze(){
-
-let lat = parseFloat(document.getElementById("lat").value);
-let lon = parseFloat(document.getElementById("lon").value);
-
-if(isNaN(lat) || isNaN(lon)){
-alert("Enter valid coordinates");
-return;
+for(let i=0;i<12;i++){
+let node = document.createElement("div");
+node.className="node";
+node.style.top=Math.random()*90+"%";
+node.style.left=Math.random()*90+"%";
+node.style.animationDelay=Math.random()*3+"s";
+map.appendChild(node);
 }
 
-// random intelligence simulation
+/* 🧠 SIMPLE AI ANALYSIS ONLY (NO MAP DATA) */
+map.addEventListener("click", function(){
+
 let score = Math.floor(Math.random()*100);
 let type = "Normal Zone";
 
-if(score>70) type="High Geological Activity Zone";
-if(score>85) type="Critical Interest Zone";
+if(score > 70) type = "High Activity Zone";
+if(score > 85) type = "Critical Interest Zone";
 
-L.marker([lat, lon]).addTo(map)
-.bindPopup("EchoEarth Analysis<br>Score: "+score+"<br>"+type)
-.openPopup();
-
-map.setView([lat, lon], 8);
-
-let output=document.getElementById("output");
+let output = document.getElementById("output");
 output.style.display="block";
 
-output.innerHTML=
-"<div class='report'>"+
-"📍 Coordinates: "+lat+", "+lon+"\n"+
-"📊 Score: "+score+"/100\n"+
-"🧠 Classification: "+type+"\n"+
-"🛰 Status: Analysis Complete"+
+output.innerHTML =
+"<div class='report'>" +
+"📊 EchoEarth Simulation Analysis\n" +
+"-----------------------------\n" +
+"📊 Score: " + score + "/100\n" +
+"🧠 Classification: " + type + "\n" +
+"🛰 Status: Completed (Simulated System)" +
 "</div>";
 
-}
+});
 
 </script>
 
