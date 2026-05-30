@@ -3,192 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EchoEarth</title>
+<title>EchoEarth Geo Intelligence System</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#000;
+background:#050814;
 color:white;
-overflow-x:hidden;
 }
 
-/* 🌌 SPACE */
-.space{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:-3;
-background: radial-gradient(circle at top, #0b1220, #000);
-overflow:hidden;
-}
-
-/* ⭐ STARS */
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:white;
-border-radius:50%;
-opacity:0.6;
-animation:twinkle 3s infinite;
-}
-
-@keyframes twinkle{
-50%{opacity:0.1;}
-}
-
-/* 🌍 EARTH */
-.earth{
-position:absolute;
-top:20px;
-left:50%;
-transform:translateX(-50%);
-width:160px;
-height:160px;
-border-radius:50%;
-background: radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91, #000);
-box-shadow:0 0 60px #2de2ff;
-}
-
-/* 🛰 SATELLITE */
-.orbit{
-position:absolute;
-top:20px;
-left:50%;
-width:220px;
-height:220px;
-transform:translateX(-50%);
-animation:rotate 12s linear infinite;
-}
-
-.satellite{
-position:absolute;
-top:0;
-left:50%;
-width:14px;
-height:14px;
-background:#ccc;
-border-radius:3px;
-box-shadow:0 0 10px white;
-}
-
-@keyframes rotate{
-100%{transform:translateX(-50%) rotate(360deg);}
-}
-
-/* NAV */
 nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 40px;
+padding:15px 25px;
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(10px);
 position:sticky;
 top:0;
+z-index:10;
 }
 
 nav h2{color:#4fd1ff;}
 
-nav a{
-color:white;
-margin-left:15px;
-text-decoration:none;
-opacity:0.8;
-}
-
-/* HERO */
-.hero{
-text-align:center;
-padding-top:220px;
-padding-bottom:20px;
-}
-
-/* 🧠 LOGO CONTAINER */
-.logo{
-width:170px;
-margin:0 auto 15px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:10px;
-}
-
-/* 🔷 PENROSE STYLE SYMBOL (illusion 3D) */
-.penrose{
-width:70px;
-height:70px;
-position:relative;
-transform:rotate(45deg);
-}
-
-.penrose::before,
-.penrose::after{
-content:"";
-position:absolute;
-inset:0;
-border:3px solid #d9d9d9;
-border-top-color:white;
-border-left-color:white;
-border-right-color:#888;
-border-bottom-color:#888;
-}
-
-/* inner depth */
-.penrose::after{
-inset:10px;
-opacity:0.6;
-}
-
-/* 🧾 TEXT LOGO */
-.logo-text{
-font-size:18px;
-letter-spacing:6px;
-font-weight:bold;
-color:#e6e6e6;
-display:flex;
-gap:6px;
-}
-
-.logo-text span{
-border-bottom:1px solid #666;
-padding-bottom:2px;
-}
-
-/* SECTIONS */
 section{
-max-width:900px;
+max-width:1100px;
 margin:auto;
 padding:40px 20px;
 }
 
+h1,h2{color:#4fd1ff;}
+
 .card{
 background:rgba(255,255,255,0.06);
-padding:20px;
-margin:15px 0;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.1);
-}
-
-/* AI */
-.ai-box{
-background:rgba(0,255,200,0.08);
-border:1px solid #00ffd5;
 padding:15px;
 border-radius:12px;
+border:1px solid rgba(255,255,255,0.1);
+margin-top:10px;
 }
 
-input{
+input,textarea{
 width:100%;
 padding:12px;
-margin-top:10px;
-border-radius:8px;
+margin:8px 0;
 border:none;
+border-radius:8px;
 }
 
 button{
@@ -198,13 +61,19 @@ padding:12px;
 border:none;
 border-radius:8px;
 cursor:pointer;
-margin-top:10px;
 font-weight:bold;
+width:100%;
 }
 
-.response{
-margin-top:10px;
-opacity:0.9;
+#map{
+height:450px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.report{
+white-space:pre-line;
+font-size:14px;
 }
 
 </style>
@@ -213,110 +82,78 @@ opacity:0.9;
 
 <body>
 
-<!-- 🌌 SPACE -->
-<div class="space">
-
-<div class="earth"></div>
-
-<div class="orbit">
-<div class="satellite"></div>
-</div>
-
-</div>
-
 <nav>
-<h2>EchoEarth</h2>
-<div>
-<a href="#about">About</a>
-<a href="#ai">AI</a>
-<a href="#contact">Contact</a>
-</div>
+<h2>EchoEarth GEO System</h2>
 </nav>
 
-<div class="hero">
+<section>
 
-<!-- 🧠 LOGO -->
-<div class="logo">
-
-<div class="penrose"></div>
-
-<div class="logo-text">
-<span>E</span><span>C</span><span>H</span><span>O</span>
-<span>E</span><span>A</span><span>R</span><span>T</span><span>H</span>
-</div>
-
-</div>
-
-<p>Advanced Earth Intelligence Platform</p>
-
-</div>
-
-<section id="about">
-<h2 style="color:#4fd1ff;">About</h2>
-<div class="card">
-EchoEarth is a platform designed for Earth intelligence, exploration concepts, and data visualization.
-</div>
-</section>
-
-<!-- 🧠 AI -->
-<section id="ai">
-<h2 style="color:#4fd1ff;">AI Assistant</h2>
-
-<div class="ai-box">
-
-<input id="q" placeholder="Ask a question...">
-<button onclick="reply()">Ask</button>
-
-<div class="response" id="res"></div>
-
-</div>
-
-</section>
-
-<section id="contact">
-<h2 style="color:#4fd1ff;">Contact</h2>
+<h1>🛰 Global Geo Intelligence System</h1>
 
 <div class="card">
-echoearthmanager@gmail.com
+
+<p>Enter coordinates:</p>
+
+<input id="lat" placeholder="Latitude (e.g. 32.1234)">
+<input id="lon" placeholder="Longitude (e.g. 20.4567)">
+
+<button onclick="analyze()">Analyze & Mark on Map</button>
+
 </div>
 
+<div id="map"></div>
+
+<div class="card" id="output" style="display:none;"></div>
+
 </section>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-/* ⭐ stars */
-for(let i=0;i<70;i++){
-let s=document.createElement("div");
-s.className="star";
-s.style.top=Math.random()*100+"%";
-s.style.left=Math.random()*100+"%";
-document.querySelector(".space").appendChild(s);
-}
+let map = L.map('map').setView([26, 18], 5);
 
-/* 🧠 SIMPLE AI */
-function reply(){
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+maxZoom: 18,
+}).addTo(map);
 
-let text=document.getElementById("q").value.toLowerCase();
-let res=document.getElementById("res");
+function analyze(){
 
-if(text===""){
-res.innerHTML="Please enter a question.";
+let lat = parseFloat(document.getElementById("lat").value);
+let lon = parseFloat(document.getElementById("lon").value);
+
+if(isNaN(lat) || isNaN(lon)){
+alert("Enter valid coordinates");
 return;
 }
 
-if(text.includes("echoearth")){
-res.innerHTML="EchoEarth is a global Earth intelligence platform.";
-}
-else if(text.includes("hello")){
-res.innerHTML="Hello 👋 Welcome to EchoEarth.";
-}
-else{
-res.innerHTML="I can only answer general questions.";
-}
+// random intelligence simulation
+let score = Math.floor(Math.random()*100);
+let type = "Normal Zone";
+
+if(score>70) type="High Geological Activity Zone";
+if(score>85) type="Critical Interest Zone";
+
+L.marker([lat, lon]).addTo(map)
+.bindPopup("EchoEarth Analysis<br>Score: "+score+"<br>"+type)
+.openPopup();
+
+map.setView([lat, lon], 8);
+
+let output=document.getElementById("output");
+output.style.display="block";
+
+output.innerHTML=
+"<div class='report'>"+
+"📍 Coordinates: "+lat+", "+lon+"\n"+
+"📊 Score: "+score+"/100\n"+
+"🧠 Classification: "+type+"\n"+
+"🛰 Status: Analysis Complete"+
+"</div>";
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
