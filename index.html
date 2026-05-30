@@ -3,106 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EchoEarth Analysis System</title>
+<title>EchoEarth</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background: radial-gradient(circle at top, #010817, #000);
+background: radial-gradient(circle at top, #0b1220, #05070d);
 color:white;
+overflow-x:hidden;
 }
 
+/* NAV */
 nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 25px;
+padding:20px 40px;
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(12px);
+backdrop-filter:blur(10px);
 position:sticky;
 top:0;
 }
 
-nav h2{color:#4fd1ff;}
-
-section{
-max-width:1000px;
-margin:auto;
-padding:50px 20px;
+nav h2{
+color:#4fd1ff;
 }
 
+nav a{
+color:white;
+margin-left:15px;
+text-decoration:none;
+opacity:0.8;
+}
+
+nav a:hover{
+opacity:1;
+}
+
+/* HERO */
 .hero{
 text-align:center;
-padding:70px 20px;
+padding:60px 20px;
+position:relative;
 }
 
 .logo{
-width:90px;
-height:90px;
+width:80px;
+height:80px;
 margin:0 auto 20px;
 background:linear-gradient(145deg,#fff,#cfcfcf);
-border-radius:14px;
+border-radius:12px;
 position:relative;
 }
 
 .logo::after{
 content:"";
 position:absolute;
-width:40px;
-height:40px;
+width:35px;
+height:35px;
 background:#d9d9d9;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-border-radius:7px;
+border-radius:6px;
 }
 
-h1{
-color:#4fd1ff;
-font-size:50px;
+/* floating earth */
+.earth{
+width:120px;
+height:120px;
+border-radius:50%;
+background:radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91);
+position:absolute;
+top:120px;
+right:-60px;
+animation:spin 12s linear infinite;
+box-shadow:0 0 40px #2de2ff;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+/* satellite */
+.satellite{
+width:20px;
+height:20px;
+background:#ccc;
+position:absolute;
+border-radius:3px;
+top:200px;
+left:-20px;
+animation:move 6s linear infinite;
+}
+
+@keyframes move{
+0%{left:-20px; top:200px;}
+50%{left:50%; top:80px;}
+100%{left:110%; top:200px;}
+}
+
+/* sections */
+section{
+max-width:1000px;
+margin:auto;
+padding:40px 20px;
 }
 
 .card{
 background:rgba(255,255,255,0.06);
 padding:20px;
+margin:15px 0;
 border-radius:12px;
 border:1px solid rgba(255,255,255,0.1);
-margin-top:15px;
+backdrop-filter:blur(8px);
 }
 
-input{
+/* contact */
+input,textarea{
 width:100%;
 padding:12px;
 margin:10px 0;
-border:none;
 border-radius:8px;
+border:none;
+outline:none;
 }
 
 button{
 background:#4fd1ff;
 color:black;
-padding:12px;
+padding:12px 20px;
 border:none;
 border-radius:8px;
 cursor:pointer;
 font-weight:bold;
-width:100%;
 }
 
-.result{
-margin-top:15px;
-padding:15px;
-border-radius:10px;
-background:rgba(0,200,83,0.15);
-border:1px solid #00c853;
-display:none;
-}
-
-.small{
-opacity:0.7;
-font-size:13px;
+footer{
+text-align:center;
+padding:20px;
+opacity:0.6;
 }
 
 </style>
@@ -112,78 +155,73 @@ font-size:13px;
 <body>
 
 <nav>
-<h2>EchoEarth Core</h2>
+<h2>EchoEarth</h2>
+<div>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
+</div>
 </nav>
 
 <div class="hero">
 
 <div class="logo"></div>
 
-<h1>EchoEarth Analysis System</h1>
-<p>AI-based Earth Location Intelligence Platform</p>
+<h1 style="color:#4fd1ff;">EchoEarth</h1>
+<p>Advanced Earth Intelligence & Exploration Platform</p>
+
+<div class="earth"></div>
+<div class="satellite"></div>
 
 </div>
 
-<section>
+<section id="about">
 
-<h2>📡 Location Input System</h2>
+<h2 style="color:#4fd1ff;">About EchoEarth</h2>
+
+<div class="card">
+EchoEarth is an AI-powered Earth intelligence platform focused on
+geological analysis, satellite observation, environmental monitoring,
+and exploration insights.
+</div>
+
+</section>
+
+<section id="services">
+
+<h2 style="color:#4fd1ff;">Services</h2>
+
+<div class="card">🌍 Geological Analysis</div>
+<div class="card">🛰 Earth Observation</div>
+<div class="card">🔍 Exploration Support</div>
+<div class="card">🌱 Environmental Monitoring</div>
+
+</section>
+
+<section id="contact">
+
+<h2 style="color:#4fd1ff;">Contact</h2>
 
 <div class="card">
 
-<p class="small">Enter coordinates for analysis (Latitude / Longitude)</p>
+<form action="https://formsubmit.co/echoearthmanager@gmail.com" method="POST">
 
-<input id="lat" placeholder="Latitude (e.g. 32.1234)">
-<input id="lon" placeholder="Longitude (e.g. 20.4567)">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<input type="text" name="subject" placeholder="Subject" required>
+<textarea name="message" placeholder="Your Message" rows="6" required></textarea>
 
-<button onclick="analyze()">Analyze Location</button>
+<button type="submit">Send Message</button>
 
-<div class="result" id="result"></div>
+</form>
 
 </div>
 
 </section>
 
-<section>
-
-<h2>🧠 System Capability</h2>
-
-<div class="card">
-EchoEarth Core analyzes geospatial patterns, environmental signals,
-and terrain structure using AI simulation models.
-</div>
-
-</section>
-
-<script>
-
-function analyze(){
-
-let lat=document.getElementById("lat").value;
-let lon=document.getElementById("lon").value;
-let result=document.getElementById("result");
-
-if(lat==="" || lon===""){
-alert("Please enter coordinates");
-return;
-}
-
-/* fake intelligent analysis simulation */
-let score=Math.floor(Math.random()*100);
-
-let type="Normal Terrain";
-if(score>70) type="High Geological Activity Zone";
-if(score>85) type="Critical Interest Zone";
-
-result.style.display="block";
-result.innerHTML=
-"<b>Coordinates:</b> "+lat+" , "+lon+"<br>"+
-"<b>Analysis Score:</b> "+score+"/100<br>"+
-"<b>Classification:</b> "+type+"<br>"+
-"<b>Status:</b> Analysis Complete";
-
-}
-
-</script>
+<footer>
+© 2026 EchoEarth — All Rights Reserved
+</footer>
 
 </body>
 </html>
