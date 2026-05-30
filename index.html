@@ -10,12 +10,12 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background: radial-gradient(circle at top, #020617, #000);
+background:#000;
 color:white;
 overflow-x:hidden;
 }
 
-/* 🌌 SPACE BACKGROUND */
+/* 🌌 SPACE */
 .space{
 position:fixed;
 width:100%;
@@ -23,11 +23,11 @@ height:100%;
 top:0;
 left:0;
 z-index:-3;
-background: radial-gradient(circle at 30% 30%, #0b1220, #000);
+background: radial-gradient(circle at top, #0b1220, #000);
 overflow:hidden;
 }
 
-/* stars */
+/* ⭐ STARS */
 .star{
 position:absolute;
 width:2px;
@@ -42,41 +42,43 @@ animation:twinkle 3s infinite;
 50%{opacity:0.1;}
 }
 
-/* 🌍 EARTH GLOW */
-.earth-bg{
+/* 🌍 EARTH */
+.earth{
 position:absolute;
-width:260px;
-height:260px;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+width:160px;
+height:160px;
 border-radius:50%;
 background: radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91, #000);
-box-shadow:0 0 80px #2de2ff;
-bottom:50px;
-right:80px;
-animation:rotateEarth 25s linear infinite;
-}
-
-@keyframes rotateEarth{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
+box-shadow:0 0 60px #2de2ff;
 }
 
 /* 🛰 SATELLITE */
-.satellite-bg{
+.orbit{
 position:absolute;
-width:18px;
-height:18px;
+top:20px;
+left:50%;
+width:220px;
+height:220px;
+transform:translateX(-50%);
+animation:rotate 12s linear infinite;
+}
+
+.satellite{
+position:absolute;
+top:0;
+left:50%;
+width:14px;
+height:14px;
 background:#ccc;
 border-radius:3px;
-top:80px;
-left:-20px;
-animation:satMove 12s linear infinite;
 box-shadow:0 0 10px white;
 }
 
-@keyframes satMove{
-0%{left:-20px; top:80px;}
-50%{left:50%; top:200px;}
-100%{left:110%; top:80px;}
+@keyframes rotate{
+100%{transform:translateX(-50%) rotate(360deg);}
 }
 
 /* NAV */
@@ -91,54 +93,93 @@ position:sticky;
 top:0;
 }
 
-nav h2{
-color:#4fd1ff;
-}
-
-nav a{
-color:white;
-margin-left:15px;
-text-decoration:none;
-opacity:0.8;
-}
-
-nav a:hover{opacity:1;}
+nav h2{color:#4fd1ff;}
 
 /* HERO */
 .hero{
 text-align:center;
-padding:60px 20px;
-position:relative;
-z-index:1;
+padding-top:220px;
+padding-bottom:40px;
 }
 
+/* 🧠 LOGO */
 .logo{
+width:200px;
+margin:0 auto;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+}
+
+/* 🔷 PENROSE 3D ILLUSION */
+.penrose{
 width:80px;
 height:80px;
-margin:0 auto 20px;
-background:linear-gradient(145deg,#fff,#cfcfcf);
-border-radius:12px;
 position:relative;
+transform:rotate(45deg);
+animation:float 4s ease-in-out infinite, glow 3s ease-in-out infinite;
+transition:0.4s;
+cursor:pointer;
 }
 
-.logo::after{
+.penrose:hover{
+transform:rotate(45deg) scale(1.15);
+filter:drop-shadow(0 0 15px #ffffff);
+}
+
+.penrose::before,
+.penrose::after{
 content:"";
 position:absolute;
-width:35px;
-height:35px;
-background:#d9d9d9;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-border-radius:6px;
+inset:0;
+border:3px solid #dcdcdc;
+border-top-color:#ffffff;
+border-left-color:#ffffff;
+border-right-color:#888;
+border-bottom-color:#888;
+border-radius:4px;
 }
 
+.penrose::after{
+inset:12px;
+opacity:0.7;
+}
+
+/* ✨ floating animation */
+@keyframes float{
+0%{transform:translateY(0) rotate(45deg);}
+50%{transform:translateY(-8px) rotate(45deg);}
+100%{transform:translateY(0) rotate(45deg);}
+}
+
+/* 💡 glow pulse */
+@keyframes glow{
+0%{box-shadow:0 0 5px #aaa;}
+50%{box-shadow:0 0 20px #fff;}
+100%{box-shadow:0 0 5px #aaa;}
+}
+
+/* 🧾 TEXT LOGO */
+.logo-text{
+font-size:18px;
+letter-spacing:6px;
+font-weight:bold;
+color:#e6e6e6;
+animation:fadeText 3s ease-in-out infinite;
+}
+
+@keyframes fadeText{
+0%{opacity:0.7;}
+50%{opacity:1;}
+100%{opacity:0.7;}
+}
+
+/* SECTIONS */
 section{
-max-width:1000px;
+max-width:900px;
 margin:auto;
 padding:40px 20px;
-z-index:1;
-position:relative;
 }
 
 .card{
@@ -147,42 +188,38 @@ padding:20px;
 margin:15px 0;
 border-radius:12px;
 border:1px solid rgba(255,255,255,0.1);
-backdrop-filter:blur(8px);
 }
 
-input,textarea{
+/* AI */
+.ai-box{
+background:rgba(0,255,200,0.08);
+border:1px solid #00ffd5;
+padding:15px;
+border-radius:12px;
+}
+
+input{
 width:100%;
 padding:12px;
-margin:10px 0;
+margin-top:10px;
 border-radius:8px;
 border:none;
-outline:none;
 }
 
 button{
 background:#4fd1ff;
 color:black;
-padding:12px 20px;
+padding:12px;
 border:none;
 border-radius:8px;
 cursor:pointer;
+margin-top:10px;
 font-weight:bold;
 }
 
-footer{
-text-align:center;
-padding:20px;
-opacity:0.6;
-}
-
-/* fade in */
-section{
-animation:fade 1s ease-in-out;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
+.response{
+margin-top:10px;
+opacity:0.9;
 }
 
 </style>
@@ -191,89 +228,41 @@ to{opacity:1; transform:translateY(0);}
 
 <body>
 
-<!-- 🌌 SPACE BACKGROUND -->
+<!-- 🌌 SPACE -->
 <div class="space">
-<div class="earth-bg"></div>
-<div class="satellite-bg"></div>
 
-<!-- stars -->
-<script>
-for(let i=0;i<80;i++){
-let star=document.createElement("div");
-star.className="star";
-star.style.top=Math.random()*100+"%";
-star.style.left=Math.random()*100+"%";
-star.style.animationDuration=(1+Math.random()*3)+"s";
-document.querySelector(".space").appendChild(star);
-}
-</script>
+<div class="earth"></div>
+
+<div class="orbit">
+<div class="satellite"></div>
+</div>
+
 </div>
 
 <nav>
 <h2>EchoEarth</h2>
-<div>
-<a href="#about">About</a>
-<a href="#services">Services</a>
-<a href="#contact">Contact</a>
-</div>
 </nav>
 
 <div class="hero">
 
-<div class="logo"></div>
+<div class="logo">
 
-<h1 style="color:#4fd1ff;">EchoEarth</h1>
-<p>Advanced Earth Intelligence & Exploration Platform</p>
+<!-- 🔷 ANIMATED LOGO -->
+<div class="penrose"></div>
+
+<div class="logo-text">ECHOEARTH</div>
 
 </div>
 
-<section id="about">
+<p>Advanced Earth Intelligence Platform</p>
 
-<h2 style="color:#4fd1ff;">About EchoEarth</h2>
+</div>
 
+<section>
 <div class="card">
-EchoEarth is an AI-powered Earth intelligence platform focused on
-geological analysis, satellite observation, environmental monitoring,
-and exploration insights.
+EchoEarth is a global Earth intelligence platform designed for exploration and data visualization.
 </div>
-
 </section>
-
-<section id="services">
-
-<h2 style="color:#4fd1ff;">Services</h2>
-
-<div class="card">🌍 Geological Analysis</div>
-<div class="card">🛰 Earth Observation</div>
-<div class="card">🔍 Exploration Support</div>
-<div class="card">🌱 Environmental Monitoring</div>
-
-</section>
-
-<section id="contact">
-
-<h2 style="color:#4fd1ff;">Contact</h2>
-
-<div class="card">
-
-<form action="https://formsubmit.co/echoearthmanager@gmail.com" method="POST">
-
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="email" name="email" placeholder="Your Email" required>
-<input type="text" name="subject" placeholder="Subject" required>
-<textarea name="message" placeholder="Your Message" rows="6" required></textarea>
-
-<button type="submit">Send Message</button>
-
-</form>
-
-</div>
-
-</section>
-
-<footer>
-© 2026 EchoEarth — All Rights Reserved
-</footer>
 
 </body>
-  </html>
+</html>
