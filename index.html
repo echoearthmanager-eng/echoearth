@@ -11,8 +11,6 @@
 
 <meta name="description" content="EchoEarth is an advanced Earth intelligence platform focused on geological analysis, satellite observation, environmental monitoring, and exploration support.">
 
-<meta name="keywords" content="EchoEarth, Earth Intelligence, Geological Analysis, Satellite, Environmental Monitoring, Exploration, Geo Data">
-
 <style>
 
 body{
@@ -23,7 +21,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* 🌌 SPACE BACKGROUND */
+/* SPACE BACKGROUND */
 .space{
 position:fixed;
 width:100%;
@@ -50,11 +48,11 @@ animation:twinkle 3s infinite;
 50%{opacity:0.1;}
 }
 
-/* 🌍 EARTH GLOW */
+/* EARTH */
 .earth-bg{
 position:absolute;
-width:260px;
-height:260px;
+width:280px;
+height:280px;
 border-radius:50%;
 background: radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91, #000);
 box-shadow:0 0 80px #2de2ff;
@@ -68,7 +66,7 @@ animation:rotateEarth 25s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* 🛰 SATELLITE */
+/* SATELLITE */
 .satellite-bg{
 position:absolute;
 width:18px;
@@ -99,9 +97,7 @@ position:sticky;
 top:0;
 }
 
-nav h2{
-color:#4fd1ff;
-}
+nav h2{color:#4fd1ff;}
 
 nav a{
 color:white;
@@ -117,12 +113,11 @@ nav a:hover{opacity:1;}
 text-align:center;
 padding:60px 20px;
 position:relative;
-z-index:1;
 }
 
 .logo{
-width:80px;
-height:80px;
+width:85px;
+height:85px;
 margin:0 auto 20px;
 background:linear-gradient(145deg,#fff,#cfcfcf);
 border-radius:12px;
@@ -141,12 +136,11 @@ transform:translate(-50%,-50%);
 border-radius:6px;
 }
 
+/* sections */
 section{
 max-width:1000px;
 margin:auto;
 padding:40px 20px;
-z-index:1;
-position:relative;
 }
 
 .card{
@@ -158,6 +152,7 @@ border:1px solid rgba(255,255,255,0.1);
 backdrop-filter:blur(8px);
 }
 
+/* contact */
 input,textarea{
 width:100%;
 padding:12px;
@@ -175,6 +170,7 @@ border:none;
 border-radius:8px;
 cursor:pointer;
 font-weight:bold;
+width:100%;
 }
 
 footer{
@@ -183,10 +179,8 @@ padding:20px;
 opacity:0.6;
 }
 
-/* fade in */
-section{
-animation:fade 1s ease-in-out;
-}
+/* fade */
+section{animation:fade 1s ease-in-out;}
 
 @keyframes fade{
 from{opacity:0; transform:translateY(20px);}
@@ -199,7 +193,7 @@ to{opacity:1; transform:translateY(0);}
 
 <body>
 
-<!-- 🌌 SPACE BACKGROUND -->
+<!-- SPACE -->
 <div class="space">
 <div class="earth-bg"></div>
 <div class="satellite-bg"></div>
@@ -214,9 +208,9 @@ star.style.animationDuration=(1+Math.random()*3)+"s";
 document.querySelector(".space").appendChild(star);
 }
 </script>
-
 </div>
 
+<!-- NAV -->
 <nav>
 <h2>EchoEarth</h2>
 <div>
@@ -226,6 +220,7 @@ document.querySelector(".space").appendChild(star);
 </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
 
 <div class="logo"></div>
@@ -235,30 +230,28 @@ document.querySelector(".space").appendChild(star);
 
 </div>
 
+<!-- ABOUT -->
 <section id="about">
-
-<h2 style="color:#4fd1ff;">About EchoEarth</h2>
-
+<h2>About EchoEarth</h2>
 <div class="card">
-EchoEarth is an AI-powered Earth intelligence platform focused on geological analysis, satellite observation, environmental monitoring, and exploration insights.
+EchoEarth is an AI-powered Earth intelligence platform focused on satellite observation,
+geological analysis, environmental monitoring, and exploration insights.
 </div>
-
 </section>
 
+<!-- SERVICES -->
 <section id="services">
-
-<h2 style="color:#4fd1ff;">Services</h2>
+<h2>Services</h2>
 
 <div class="card">🌍 Geological Analysis</div>
 <div class="card">🛰 Earth Observation</div>
 <div class="card">🔍 Exploration Support</div>
 <div class="card">🌱 Environmental Monitoring</div>
-
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
-
-<h2 style="color:#4fd1ff;">Contact</h2>
+<h2>Contact Us</h2>
 
 <div class="card">
 
@@ -273,13 +266,23 @@ EchoEarth is an AI-powered Earth intelligence platform focused on geological ana
 
 </form>
 
-</div>
+<br>
 
+<p>📧 Email: echoearthmanager@gmail.com</p>
+
+<p>🐦 X (Twitter): 
+<a href="https://x.com/EchoEarth25" target="_blank" style="color:#4fd1ff;">
+@EchoEarth25
+</a>
+</p>
+
+</div>
 </section>
 
+<!-- FOOTER -->
 <footer>
 © 2026 EchoEarth — All Rights Reserved
 </footer>
 
 </body>
-  </html>
+</html>
