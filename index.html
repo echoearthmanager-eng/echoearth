@@ -95,37 +95,36 @@ top:0;
 
 nav h2{color:#4fd1ff;}
 
+nav a{
+color:white;
+margin-left:15px;
+text-decoration:none;
+opacity:0.8;
+}
+
 /* HERO */
 .hero{
 text-align:center;
 padding-top:220px;
-padding-bottom:40px;
+padding-bottom:20px;
 }
 
-/* 🧠 LOGO */
+/* 🧠 LOGO CONTAINER */
 .logo{
-width:200px;
-margin:0 auto;
+width:170px;
+margin:0 auto 15px;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:12px;
+gap:10px;
 }
 
-/* 🔷 PENROSE 3D ILLUSION */
+/* 🔷 PENROSE STYLE SYMBOL (illusion 3D) */
 .penrose{
-width:80px;
-height:80px;
+width:70px;
+height:70px;
 position:relative;
 transform:rotate(45deg);
-animation:float 4s ease-in-out infinite, glow 3s ease-in-out infinite;
-transition:0.4s;
-cursor:pointer;
-}
-
-.penrose:hover{
-transform:rotate(45deg) scale(1.15);
-filter:drop-shadow(0 0 15px #ffffff);
 }
 
 .penrose::before,
@@ -133,31 +132,17 @@ filter:drop-shadow(0 0 15px #ffffff);
 content:"";
 position:absolute;
 inset:0;
-border:3px solid #dcdcdc;
-border-top-color:#ffffff;
-border-left-color:#ffffff;
+border:3px solid #d9d9d9;
+border-top-color:white;
+border-left-color:white;
 border-right-color:#888;
 border-bottom-color:#888;
-border-radius:4px;
 }
 
+/* inner depth */
 .penrose::after{
-inset:12px;
-opacity:0.7;
-}
-
-/* ✨ floating animation */
-@keyframes float{
-0%{transform:translateY(0) rotate(45deg);}
-50%{transform:translateY(-8px) rotate(45deg);}
-100%{transform:translateY(0) rotate(45deg);}
-}
-
-/* 💡 glow pulse */
-@keyframes glow{
-0%{box-shadow:0 0 5px #aaa;}
-50%{box-shadow:0 0 20px #fff;}
-100%{box-shadow:0 0 5px #aaa;}
+inset:10px;
+opacity:0.6;
 }
 
 /* 🧾 TEXT LOGO */
@@ -166,13 +151,13 @@ font-size:18px;
 letter-spacing:6px;
 font-weight:bold;
 color:#e6e6e6;
-animation:fadeText 3s ease-in-out infinite;
+display:flex;
+gap:6px;
 }
 
-@keyframes fadeText{
-0%{opacity:0.7;}
-50%{opacity:1;}
-100%{opacity:0.7;}
+.logo-text span{
+border-bottom:1px solid #666;
+padding-bottom:2px;
 }
 
 /* SECTIONS */
@@ -241,16 +226,24 @@ opacity:0.9;
 
 <nav>
 <h2>EchoEarth</h2>
+<div>
+<a href="#about">About</a>
+<a href="#ai">AI</a>
+<a href="#contact">Contact</a>
+</div>
 </nav>
 
 <div class="hero">
 
+<!-- 🧠 LOGO -->
 <div class="logo">
 
-<!-- 🔷 ANIMATED LOGO -->
 <div class="penrose"></div>
 
-<div class="logo-text">ECHOEARTH</div>
+<div class="logo-text">
+<span>E</span><span>C</span><span>H</span><span>O</span>
+<span>E</span><span>A</span><span>R</span><span>T</span><span>H</span>
+</div>
 
 </div>
 
@@ -258,11 +251,72 @@ opacity:0.9;
 
 </div>
 
-<section>
+<section id="about">
+<h2 style="color:#4fd1ff;">About</h2>
 <div class="card">
-EchoEarth is a global Earth intelligence platform designed for exploration and data visualization.
+EchoEarth is a platform designed for Earth intelligence, exploration concepts, and data visualization.
 </div>
 </section>
 
+<!-- 🧠 AI -->
+<section id="ai">
+<h2 style="color:#4fd1ff;">AI Assistant</h2>
+
+<div class="ai-box">
+
+<input id="q" placeholder="Ask a question...">
+<button onclick="reply()">Ask</button>
+
+<div class="response" id="res"></div>
+
+</div>
+
+</section>
+
+<section id="contact">
+<h2 style="color:#4fd1ff;">Contact</h2>
+
+<div class="card">
+echoearthmanager@gmail.com
+</div>
+
+</section>
+
+<script>
+
+/* ⭐ stars */
+for(let i=0;i<70;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.top=Math.random()*100+"%";
+s.style.left=Math.random()*100+"%";
+document.querySelector(".space").appendChild(s);
+}
+
+/* 🧠 SIMPLE AI */
+function reply(){
+
+let text=document.getElementById("q").value.toLowerCase();
+let res=document.getElementById("res");
+
+if(text===""){
+res.innerHTML="Please enter a question.";
+return;
+}
+
+if(text.includes("echoearth")){
+res.innerHTML="EchoEarth is a global Earth intelligence platform.";
+}
+else if(text.includes("hello")){
+res.innerHTML="Hello 👋 Welcome to EchoEarth.";
+}
+else{
+res.innerHTML="I can only answer general questions.";
+}
+
+}
+
+</script>
+
 </body>
-</html>
+  </html>
