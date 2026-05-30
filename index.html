@@ -3,15 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EchoEarth Geo Intelligence System</title>
+<title>EchoEarth</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#050814;
+background:#000;
 color:white;
+overflow-x:hidden;
+}
+
+/* 🌌 BACKGROUND */
+.space{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-3;
+background: radial-gradient(circle at top, #0b1220, #000);
+overflow:hidden;
+}
+
+/* ⭐ STARS */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:0.6;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+50%{opacity:0.1;}
+}
+
+/* 🌍 EARTH */
+.earth{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+width:160px;
+height:160px;
+border-radius:50%;
+background: radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91, #000);
+box-shadow:0 0 60px #2de2ff;
+}
+
+/* 🛰 SATELLITE ORBIT */
+.orbit{
+position:absolute;
+top:20px;
+left:50%;
+width:220px;
+height:220px;
+transform:translateX(-50%);
+animation:rotate 12s linear infinite;
+}
+
+.satellite{
+position:absolute;
+top:0;
+left:50%;
+width:14px;
+height:14px;
+background:#ccc;
+border-radius:3px;
+box-shadow:0 0 10px white;
+}
+
+@keyframes rotate{
+100%{transform:translateX(-50%) rotate(360deg);}
 }
 
 /* NAV */
@@ -19,81 +86,74 @@ nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 25px;
+padding:20px 40px;
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(10px);
 position:sticky;
 top:0;
-z-index:10;
 }
 
 nav h2{color:#4fd1ff;}
 
-/* LAYOUT */
+nav a{
+color:white;
+margin-left:15px;
+text-decoration:none;
+opacity:0.8;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding-top:220px;
+padding-bottom:40px;
+}
+
+/* SECTIONS */
 section{
-max-width:1100px;
+max-width:900px;
 margin:auto;
 padding:40px 20px;
 }
 
-h1,h2{color:#4fd1ff;}
-
 .card{
 background:rgba(255,255,255,0.06);
-padding:15px;
+padding:20px;
+margin:15px 0;
 border-radius:12px;
 border:1px solid rgba(255,255,255,0.1);
-margin-top:10px;
 }
 
-/* 🗺️ DECORATIVE MAP */
-.map{
-height:500px;
+/* AI BOX */
+.ai-box{
+background:rgba(0,255,200,0.08);
+border:1px solid #00ffd5;
+padding:15px;
 border-radius:12px;
-margin-top:15px;
-position:relative;
-overflow:hidden;
-background: radial-gradient(circle at 30% 30%, #0b3d91, #020617);
 }
 
-/* glowing grid lines */
-.map::before{
-content:"";
-position:absolute;
-width:200%;
-height:200%;
-background:
-linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-background-size:60px 60px;
-animation:gridMove 10s linear infinite;
-opacity:0.3;
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:none;
 }
 
-@keyframes gridMove{
-0%{transform:translate(0,0);}
-100%{transform:translate(-60px,-60px);}
-}
-
-/* floating nodes */
-.node{
-width:10px;
-height:10px;
+button{
 background:#4fd1ff;
-border-radius:50%;
-position:absolute;
-box-shadow:0 0 10px #4fd1ff;
-animation:float 3s infinite ease-in-out;
+color:black;
+padding:12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+font-weight:bold;
 }
 
-@keyframes float{
-50%{transform:scale(1.5); opacity:0.5;}
-}
-
-/* REPORT */
-.report{
-white-space:pre-line;
-font-size:14px;
+.response{
+margin-top:10px;
+opacity:0.9;
 }
 
 </style>
@@ -102,60 +162,100 @@ font-size:14px;
 
 <body>
 
-<nav>
-<h2>EchoEarth GEO System</h2>
-</nav>
+<!-- 🌌 SPACE -->
+<div class="space">
 
-<section>
+<div class="earth"></div>
 
-<h1>🛰 Global Geo Intelligence System</h1>
-
-<div class="card">
-🧠 Click anywhere on the map (decorative system only)
+<div class="orbit">
+<div class="satellite"></div>
 </div>
 
-<div class="map" id="map"></div>
+</div>
 
-<div class="card" id="output" style="display:none;"></div>
+<nav>
+<h2>EchoEarth</h2>
+<div>
+<a href="#about">About</a>
+<a href="#ai">AI</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<div class="hero">
+<h1 style="color:#4fd1ff;">EchoEarth</h1>
+<p>Advanced Earth Intelligence Platform</p>
+</div>
+
+<section id="about">
+<h2 style="color:#4fd1ff;">About</h2>
+<div class="card">
+EchoEarth is a platform designed to present Earth-related information and exploration concepts.
+</div>
+</section>
+
+<!-- 🧠 AI -->
+<section id="ai">
+<h2 style="color:#4fd1ff;">AI Assistant</h2>
+
+<div class="ai-box">
+
+<p>Ask a question:</p>
+
+<input id="q" placeholder="Type here...">
+<button onclick="reply()">Ask</button>
+
+<div class="response" id="res"></div>
+
+</div>
+
+</section>
+
+<section id="contact">
+<h2 style="color:#4fd1ff;">Contact</h2>
+
+<div class="card">
+Email: echoearthmanager@gmail.com
+</div>
 
 </section>
 
 <script>
 
-/* 🗺️ CREATE DECORATIVE NODES */
-const map = document.getElementById("map");
-
-for(let i=0;i<12;i++){
-let node = document.createElement("div");
-node.className="node";
-node.style.top=Math.random()*90+"%";
-node.style.left=Math.random()*90+"%";
-node.style.animationDelay=Math.random()*3+"s";
-map.appendChild(node);
+/* ⭐ stars */
+for(let i=0;i<70;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.top=Math.random()*100+"%";
+s.style.left=Math.random()*100+"%";
+document.querySelector(".space").appendChild(s);
 }
 
-/* 🧠 SIMPLE AI ANALYSIS ONLY (NO MAP DATA) */
-map.addEventListener("click", function(){
+/* 🧠 SIMPLE AI ONLY GENERAL QUESTIONS */
+function reply(){
 
-let score = Math.floor(Math.random()*100);
-let type = "Normal Zone";
+let text=document.getElementById("q").value.toLowerCase();
+let res=document.getElementById("res");
 
-if(score > 70) type = "High Activity Zone";
-if(score > 85) type = "Critical Interest Zone";
+if(text===""){
+res.innerHTML="Please enter a question.";
+return;
+}
 
-let output = document.getElementById("output");
-output.style.display="block";
+if(text.includes("what is echoearth")){
+res.innerHTML="EchoEarth is a platform for presenting Earth-related exploration concepts.";
+}
+else if(text.includes("hello")){
+res.innerHTML="Hello 👋 Welcome to EchoEarth.";
+}
+else if(text.includes("who are you")){
+res.innerHTML="I am a simple assistant inside EchoEarth.";
+}
+else{
+res.innerHTML="I can only answer general questions about EchoEarth.";
+}
 
-output.innerHTML =
-"<div class='report'>" +
-"📊 EchoEarth Simulation Analysis\n" +
-"-----------------------------\n" +
-"📊 Score: " + score + "/100\n" +
-"🧠 Classification: " + type + "\n" +
-"🛰 Status: Completed (Simulated System)" +
-"</div>";
-
-});
+}
 
 </script>
 
