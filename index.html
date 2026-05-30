@@ -3,54 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EchoEarth</title>
+<title>EchoEarth Analysis System</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f7f9;color:#333}
-header{background:#0f172a;color:#fff;text-align:center;padding:80px}
-section{max-width:1000px;margin:auto;padding:40px}
-.service{background:#fff;margin:15px 0;padding:20px;border-radius:10px}
-.contact{background:#fff;padding:20px;border-radius:10px}
-input,textarea{width:100%;padding:10px;margin:10px 0}
-button{background:#0f172a;color:#fff;padding:10px 20px;border:0}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background: radial-gradient(circle at top, #010817, #000);
+color:white;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+position:sticky;
+top:0;
+}
+
+nav h2{color:#4fd1ff;}
+
+section{
+max-width:1000px;
+margin:auto;
+padding:50px 20px;
+}
+
+.hero{
+text-align:center;
+padding:70px 20px;
+}
+
+.logo{
+width:90px;
+height:90px;
+margin:0 auto 20px;
+background:linear-gradient(145deg,#fff,#cfcfcf);
+border-radius:14px;
+position:relative;
+}
+
+.logo::after{
+content:"";
+position:absolute;
+width:40px;
+height:40px;
+background:#d9d9d9;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+border-radius:7px;
+}
+
+h1{
+color:#4fd1ff;
+font-size:50px;
+}
+
+.card{
+background:rgba(255,255,255,0.06);
+padding:20px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.1);
+margin-top:15px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+}
+
+button{
+background:#4fd1ff;
+color:black;
+padding:12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+width:100%;
+}
+
+.result{
+margin-top:15px;
+padding:15px;
+border-radius:10px;
+background:rgba(0,200,83,0.15);
+border:1px solid #00c853;
+display:none;
+}
+
+.small{
+opacity:0.7;
+font-size:13px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<header>
-<h1>EchoEarth</h1>
-<p>Advanced Earth Intelligence Platform</p>
-</header>
+<nav>
+<h2>EchoEarth Core</h2>
+</nav>
+
+<div class="hero">
+
+<div class="logo"></div>
+
+<h1>EchoEarth Analysis System</h1>
+<p>AI-based Earth Location Intelligence Platform</p>
+
+</div>
 
 <section>
-<h2>About</h2>
-<p>EchoEarth is a platform for Earth observation and geological analysis.</p>
+
+<h2>📡 Location Input System</h2>
+
+<div class="card">
+
+<p class="small">Enter coordinates for analysis (Latitude / Longitude)</p>
+
+<input id="lat" placeholder="Latitude (e.g. 32.1234)">
+<input id="lon" placeholder="Longitude (e.g. 20.4567)">
+
+<button onclick="analyze()">Analyze Location</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
 </section>
 
 <section>
-<h2>Services</h2>
 
-<div class="service">Geological Analysis</div>
-<div class="service">Earth Observation</div>
-<div class="service">Exploration Support</div>
+<h2>🧠 System Capability</h2>
 
-</section>
-
-<section class="contact">
-
-<h2>Contact</h2>
-
-<form action="https://formsubmit.co/echoearthmanager@gmail.com" method="POST">
-<input type="text" name="name" placeholder="Name" required>
-<input type="email" name="email" placeholder="Email" required>
-<input type="text" name="subject" placeholder="Subject" required>
-<textarea name="message" placeholder="Message" required></textarea>
-<button type="submit">Send</button>
-</form>
+<div class="card">
+EchoEarth Core analyzes geospatial patterns, environmental signals,
+and terrain structure using AI simulation models.
+</div>
 
 </section>
+
+<script>
+
+function analyze(){
+
+let lat=document.getElementById("lat").value;
+let lon=document.getElementById("lon").value;
+let result=document.getElementById("result");
+
+if(lat==="" || lon===""){
+alert("Please enter coordinates");
+return;
+}
+
+/* fake intelligent analysis simulation */
+let score=Math.floor(Math.random()*100);
+
+let type="Normal Terrain";
+if(score>70) type="High Geological Activity Zone";
+if(score>85) type="Critical Interest Zone";
+
+result.style.display="block";
+result.innerHTML=
+"<b>Coordinates:</b> "+lat+" , "+lon+"<br>"+
+"<b>Analysis Score:</b> "+score+"/100<br>"+
+"<b>Classification:</b> "+type+"<br>"+
+"<b>Status:</b> Analysis Complete";
+
+}
+
+</script>
 
 </body>
 </html>
