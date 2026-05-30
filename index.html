@@ -10,9 +10,73 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background: radial-gradient(circle at top, #0b1220, #05070d);
+background: radial-gradient(circle at top, #020617, #000);
 color:white;
 overflow-x:hidden;
+}
+
+/* 🌌 SPACE BACKGROUND */
+.space{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-3;
+background: radial-gradient(circle at 30% 30%, #0b1220, #000);
+overflow:hidden;
+}
+
+/* stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:0.6;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+50%{opacity:0.1;}
+}
+
+/* 🌍 EARTH GLOW */
+.earth-bg{
+position:absolute;
+width:260px;
+height:260px;
+border-radius:50%;
+background: radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91, #000);
+box-shadow:0 0 80px #2de2ff;
+bottom:50px;
+right:80px;
+animation:rotateEarth 25s linear infinite;
+}
+
+@keyframes rotateEarth{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+/* 🛰 SATELLITE */
+.satellite-bg{
+position:absolute;
+width:18px;
+height:18px;
+background:#ccc;
+border-radius:3px;
+top:80px;
+left:-20px;
+animation:satMove 12s linear infinite;
+box-shadow:0 0 10px white;
+}
+
+@keyframes satMove{
+0%{left:-20px; top:80px;}
+50%{left:50%; top:200px;}
+100%{left:110%; top:80px;}
 }
 
 /* NAV */
@@ -38,15 +102,14 @@ text-decoration:none;
 opacity:0.8;
 }
 
-nav a:hover{
-opacity:1;
-}
+nav a:hover{opacity:1;}
 
 /* HERO */
 .hero{
 text-align:center;
 padding:60px 20px;
 position:relative;
+z-index:1;
 }
 
 .logo{
@@ -70,47 +133,12 @@ transform:translate(-50%,-50%);
 border-radius:6px;
 }
 
-/* floating earth */
-.earth{
-width:120px;
-height:120px;
-border-radius:50%;
-background:radial-gradient(circle at 30% 30%, #2de2ff, #0b3d91);
-position:absolute;
-top:120px;
-right:-60px;
-animation:spin 12s linear infinite;
-box-shadow:0 0 40px #2de2ff;
-}
-
-@keyframes spin{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
-}
-
-/* satellite */
-.satellite{
-width:20px;
-height:20px;
-background:#ccc;
-position:absolute;
-border-radius:3px;
-top:200px;
-left:-20px;
-animation:move 6s linear infinite;
-}
-
-@keyframes move{
-0%{left:-20px; top:200px;}
-50%{left:50%; top:80px;}
-100%{left:110%; top:200px;}
-}
-
-/* sections */
 section{
 max-width:1000px;
 margin:auto;
 padding:40px 20px;
+z-index:1;
+position:relative;
 }
 
 .card{
@@ -122,7 +150,6 @@ border:1px solid rgba(255,255,255,0.1);
 backdrop-filter:blur(8px);
 }
 
-/* contact */
 input,textarea{
 width:100%;
 padding:12px;
@@ -148,11 +175,39 @@ padding:20px;
 opacity:0.6;
 }
 
+/* fade in */
+section{
+animation:fade 1s ease-in-out;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
 </style>
 
 </head>
 
 <body>
+
+<!-- 🌌 SPACE BACKGROUND -->
+<div class="space">
+<div class="earth-bg"></div>
+<div class="satellite-bg"></div>
+
+<!-- stars -->
+<script>
+for(let i=0;i<80;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"%";
+star.style.left=Math.random()*100+"%";
+star.style.animationDuration=(1+Math.random()*3)+"s";
+document.querySelector(".space").appendChild(star);
+}
+</script>
+</div>
 
 <nav>
 <h2>EchoEarth</h2>
@@ -169,9 +224,6 @@ opacity:0.6;
 
 <h1 style="color:#4fd1ff;">EchoEarth</h1>
 <p>Advanced Earth Intelligence & Exploration Platform</p>
-
-<div class="earth"></div>
-<div class="satellite"></div>
 
 </div>
 
@@ -224,4 +276,4 @@ and exploration insights.
 </footer>
 
 </body>
-</html>
+  </html>
